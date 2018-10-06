@@ -1,23 +1,55 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+/***************************
+ * import angular modules 
+ **************************/
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { Routes , RouterModule } from '@angular/router';
+import { HttpClientModule,HttpClient,HttpClientJsonpModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
+/****************
+ * components 
+ ****************/ 
 import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
+import { ManageCustomer } from './components/managecustomer/managecustomer';
+import { CustomersDetail } from './components/customersdetail/customersdetail';
+import { CustomerCreate } from './components/customercreate/customercreate';
+
+/****************
+ *  services
+ * **************/
+import { ReadJSON } from './services/customersdetail'; 
+
+
+/*******************
+ * integrate routes 
+ * *******************/
+export const routes : Routes = [{
+  path : "" , redirectTo: "managecustomer", pathMatch: "full"
+},{
+  path : 'managecustomer' , component: ManageCustomer
+},{
+  path: 'customersdetail' , component: CustomersDetail
+},{
+  path: 'customercreate' , component: CustomerCreate
+}]
+ 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        AppRoutingModule
-    ],
-    declarations: [AppComponent],
-    providers: [AuthGuard],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    ManageCustomer,
+    CustomersDetail,
+    CustomerCreate
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    HttpClientJsonpModule,
+    ReactiveFormsModule
+  ],
+  providers: [ ReadJSON , HttpClient],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

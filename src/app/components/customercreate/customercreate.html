@@ -1,0 +1,31 @@
+<div class="prnt-frm">
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" formControlName="firstname" class="form-control" maxlength="50" [ngClass]="{ 'is-invalid': IsSubmitted && f.firstname.errors }" />
+            
+            <div *ngIf="IsSubmitted && f.firstname.errors" class="invalid-feedback">
+                <div *ngIf="f.firstname.errors.required" class="error">First Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastname" class="form-control" maxlength="50"  [ngClass]="{ 'is-invalid': IsSubmitted && f.lastname.errors }" />
+            
+            <div *ngIf="IsSubmitted && f.lastname.errors" class="invalid-feedback">
+                <div *ngIf="f.lastname.errors.required" class="error">Last Name is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Code</label>
+            <input type="text" formControlName="code" class="form-control" maxlength="10" [ngClass]="{ 'is-invalid': IsSubmitted && f.code.errors }" />
+            <div *ngIf="IsSubmitted && f.code.errors" class="invalid-feedback">
+                <div *ngIf="f.code.errors.required" class="error">Code is required</div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
